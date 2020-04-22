@@ -14,17 +14,13 @@ const cashback = {
 };
 
 export default function calculateCashback(amount) {
-  if (amount >= cashback.gold.bound) {
-    return Math.ceil(amount * cashback.gold.percent / 100);
-  }
+  const amount1percent = amount / 100;
 
-  if (amount >= cashback.silver.bound) {
-    return Math.ceil(amount * cashback.silver.percent / 100);
-  }
+  const card = ['gold', 'silver', 'regular'].find(
+    (field) => amount >= cashback[field].bound,
+  );
 
-  if (amount >= cashback.regular.bound) {
-    return Math.ceil(amount * cashback.regular.percent / 100);
-  }
+  if (!card) return 0;
 
-  return 0;
+  return amount1percent * cashback[card].percent;
 }
